@@ -1,0 +1,8 @@
+# XDRParity is a determinism project: line endings are part of byte-identity.
+# Everything text is committed and checked out as LF on every platform.
+* text=auto eol=lf
+*.sh text eol=lf
+
+# Binary artifacts (runner builds land later)
+*.jar binary
+*.png binary

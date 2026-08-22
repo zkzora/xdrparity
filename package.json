@@ -1,0 +1,22 @@
+{
+  "name": "xdrparity",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Differential test harness for Stellar SDK transaction-building parity: the same fixtures built offline by the JS, Python, Go, and Java SDKs must produce equivalent XDR.",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "one": "tsx harness/src/run.ts",
+    "matrix": "tsx harness/src/matrix.ts",
+    "compare": "tsx harness/src/compare.ts",
+    "verify-determinism": "tsx harness/src/verify-determinism.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.12",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  },
+  "dependencies": {
+    "yaml": "^2.9.0"
+  }
+}

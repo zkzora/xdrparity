@@ -1,0 +1,39 @@
+# Harness (Node)
+node_modules/
+dist/
+coverage/
+*.log
+
+# Python runner
+__pycache__/
+*.pyc
+.venv/
+
+# Go runner
+runners/go/bin/
+
+# Java runner
+runners/java/.gradle/
+runners/java/build/
+
+# Generated report output — only divergence notes and the published matrix are committed (CLAUDE.md)
+report/*
+!report/divergences/
+!report/matrix.md
+!report/matrix.html
+!report/matrix.json
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Stray empty file at repo root (accidental, kept out of history)
+/XDR
+
+# Go build artifacts
+*.exe
+
+# Java runner build output
+runners/java/bin/
+!report/sow-evidence-run.txt
+!report/poisoned-run.txt
