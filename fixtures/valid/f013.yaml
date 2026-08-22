@@ -1,0 +1,24 @@
+id: f013
+title: create_claimable_balance, issued asset, time predicate
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: create_claimable_balance
+    asset: { type: credit, code: USDC, issuer: bob }
+    amount: "25.0000000"
+    claimants:
+      - destination: bob
+        predicate: unconditional
+      - destination: carol
+        predicate:
+          abs_before: 1893456000
+signers:
+  - alice
+expect: valid

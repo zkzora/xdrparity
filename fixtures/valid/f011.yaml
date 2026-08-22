@@ -1,0 +1,19 @@
+id: f011
+title: set_options master weight; three signatures in committed order
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: set_options
+    master_weight: 10
+signers:
+  - alice
+  - bob
+  - carol
+expect: valid

@@ -1,0 +1,23 @@
+id: f014
+title: invoke_contract, token transfer args
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CATEM5IMVAFLPMYHOXIEQMKUW7XVYG6DOGYS6ZAVVRSPGC6G7KPIXVEN
+    function: transfer
+    args:
+      - address: alice
+      - address: bob
+      - i128: "500000000"
+    auth: []
+signers:
+  - alice
+expect: valid

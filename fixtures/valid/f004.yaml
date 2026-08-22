@@ -1,0 +1,19 @@
+id: f004
+title: native payment to muxed destination (bob, id 9876543210)
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: payment
+    destination: MD736ZDG6TG24DDM4G42K3DKUJKDEOAD5ECAJHRGE5YWN2N2SWIPWAAAAABEZMAW5JGHI
+    asset: { type: native }
+    amount: "7.0000000"
+signers:
+  - alice
+expect: valid

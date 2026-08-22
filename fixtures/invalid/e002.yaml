@@ -1,0 +1,19 @@
+id: e002
+title: seq_num is string garbage
+protocol_version: 23
+source_account: alice
+seq_num: "not-a-number"
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: payment
+    destination: bob
+    asset: { type: native }
+    amount: "1.0000000"
+signers:
+  - alice
+expect: error

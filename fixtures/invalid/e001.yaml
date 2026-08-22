@@ -1,0 +1,19 @@
+id: e001
+title: "malformed asset code: 13 characters"
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: payment
+    destination: carol
+    asset: { type: credit, code: THIRTEENCHARS, issuer: bob }
+    amount: "1.0000000"
+signers:
+  - alice
+expect: error

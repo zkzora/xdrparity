@@ -1,0 +1,24 @@
+id: f020
+title: invoke_contract, empty vec and nested vec-of-vec
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CATEM5IMVAFLPMYHOXIEQMKUW7XVYG6DOGYS6ZAVVRSPGC6G7KPIXVEN
+    function: nest
+    args:
+      - vec: []
+      - vec:
+          - vec:
+              - u32: 0
+    auth: []
+signers:
+  - alice
+expect: valid

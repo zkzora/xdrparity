@@ -1,0 +1,44 @@
+id: f017
+title: invoke_contract with nested invocation auth tree
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CATEM5IMVAFLPMYHOXIEQMKUW7XVYG6DOGYS6ZAVVRSPGC6G7KPIXVEN
+    function: approve
+    args:
+      - address: carol
+      - i128: "1000000"
+    auth:
+      - credentials:
+          address: carol
+          nonce: 987654321
+          signature_expiration_ledger: 500000
+        invocation:
+          contract: CATEM5IMVAFLPMYHOXIEQMKUW7XVYG6DOGYS6ZAVVRSPGC6G7KPIXVEN
+          function: approve
+          args:
+            - address: carol
+            - i128: "1000000"
+          sub_invocations:
+            - contract: CC6Q62NHJFHIRBZVOI5Z3JL74KCJNFRS6AX6LAZACNIMNAQRRJZSQINA
+              function: transfer
+              args:
+                - address: carol
+                - i128: "1000000"
+              sub_invocations:
+                - contract: CC6Q62NHJFHIRBZVOI5Z3JL74KCJNFRS6AX6LAZACNIMNAQRRJZSQINA
+                  function: burn
+                  args:
+                    - i128: "1"
+                  sub_invocations: []
+signers:
+  - alice
+expect: valid

@@ -1,0 +1,20 @@
+id: f009
+title: set_options thresholds; two signatures in committed order
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: set_options
+    low_threshold: 1
+    med_threshold: 2
+    high_threshold: 3
+signers:
+  - alice
+  - carol
+expect: valid

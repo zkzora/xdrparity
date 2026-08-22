@@ -1,0 +1,19 @@
+id: f002
+title: issued-asset payment, USDC issued by bob, alice pays carol
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: payment
+    destination: carol
+    asset: { type: credit, code: USDC, issuer: bob }
+    amount: "42.0000001"
+signers:
+  - alice
+expect: valid

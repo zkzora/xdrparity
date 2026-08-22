@@ -1,0 +1,26 @@
+{
+  "js": {
+    "sdk": "@stellar/stellar-sdk",
+    "version": "17.0.0",
+    "run": ["node", "index.js"],
+    "cwd": "runners/js"
+  },
+  "python": {
+    "sdk": "stellar-sdk (PyPI)",
+    "version": "15.0.0",
+    "run": [".venv/Scripts/python.exe", "runner.py"],
+    "cwd": "runners/python"
+  },
+  "go": {
+    "sdk": "github.com/stellar/go (txnbuild)",
+    "version": "v0.0.0-20251210100531-aab2ea4aca88",
+    "run": ["go", "run", "."],
+    "cwd": "runners/go"
+  },
+  "java": {
+    "sdk": "network.lightsail:stellar-sdk (java-stellar-sdk)",
+    "version": "4.0.1",
+    "run": ["${JAVA_HOME}/bin/java", "-jar", "build/libs/runner-java-all.jar"],
+    "cwd": "runners/java"
+  }
+}

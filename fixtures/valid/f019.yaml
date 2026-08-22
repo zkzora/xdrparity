@@ -1,0 +1,23 @@
+id: f019
+title: "invoke_contract, edge scalars: 32-char symbol, u32 max, void"
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CC6Q62NHJFHIRBZVOI5Z3JL74KCJNFRS6AX6LAZACNIMNAQRRJZSQINA
+    function: edges
+    args:
+      - symbol: abcdefghijklmnopqrstuvwxyz_ABCDE
+      - u32: 4294967295
+      - void: null
+    auth: []
+signers:
+  - alice
+expect: valid

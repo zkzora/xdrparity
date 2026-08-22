@@ -1,0 +1,21 @@
+id: e005
+title: i128 out of range (2^127)
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CATEM5IMVAFLPMYHOXIEQMKUW7XVYG6DOGYS6ZAVVRSPGC6G7KPIXVEN
+    function: transfer
+    args:
+      - i128: "170141183460469231731687303715884105728"
+    auth: []
+signers:
+  - alice
+expect: error

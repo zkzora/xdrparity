@@ -1,0 +1,28 @@
+id: f015
+title: "invoke_contract, multi-arg call: u32/i128/symbol/address/vec"
+protocol_version: 23
+source_account: alice
+seq_num: 103720918407356415
+fee: 100
+time_bounds:
+  min_time: 1735689600
+  max_time: 1893456000
+memo:
+  type: none
+operations:
+  - type: invoke_contract
+    contract: CC6Q62NHJFHIRBZVOI5Z3JL74KCJNFRS6AX6LAZACNIMNAQRRJZSQINA
+    function: multi
+    args:
+      - u32: 7
+      - i128: "123456789012345678901234567890"
+      - symbol: hello
+      - address: carol
+      - vec:
+          - u32: 1
+          - u32: 2
+          - symbol: end
+    auth: []
+signers:
+  - alice
+expect: valid

@@ -1,0 +1,27 @@
+// Mirrors fixtures/determinism.md — that document is the source of truth;
+// keep this file in sync with it by hand.
+
+export const NETWORK_PASSPHRASE = 'Test SDF Network ; September 2015';
+
+export const NETWORK_ID_HEX =
+  'cee0302d59844d32bdca915c8203dd44b33fbb7edc19051ea37abedf28ecd472';
+
+// TESTNET-ONLY — NEVER FUND (see fixtures/determinism.md §3).
+export const KEYPAIRS: Record<string, { publicKey: string; secretSeed: string }> = {
+  alice: {
+    publicKey: 'GDVTHGAKUSGSMVXGLSU5LIR3VBYE36MKGW443HBARQIAPE6SEZGHEJLC',
+    secretSeed: 'SCNNJVGY4WCY3QCMJB4S3M2CJVUXCT5Y6VHT7VC3LUXSYG363SBMCOPA',
+  },
+  bob: {
+    publicKey: 'GD736ZDG6TG24DDM4G42K3DKUJKDEOAD5ECAJHRGE5YWN2N2SWIPW53D',
+    secretSeed: 'SDKHAS3IFPV6TUXY7WFV6Y5PSDDQTXDXXUICEM62CRI3RG77IZL5S6RS',
+  },
+  carol: {
+    publicKey: 'GAJ7AQWPOQRZHLQ75OZMT4FW67OGAQJY5XLVX2INNKTHBIQTBRFVZHTQ',
+    secretSeed: 'SC27X3EQOLQSV2KPIQUIVCEDEWM4JSQGTACON4N4OFE6UK73GKFMUVSL',
+  },
+  dave: {
+    publicKey: 'GC6E7NBPJYA3LRHB6WTKBRJXX7LYKUEY56TMSTNYBKFGUYQX65NUNVD5',
+    secretSeed: 'SCSDNPY3IA5MH7YIOC2QZD5WZWJLMSLYTVVNBGZ7TREI4LIZDRS2Y6BK',
+  },
+};

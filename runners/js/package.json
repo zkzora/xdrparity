@@ -1,0 +1,11 @@
+{
+  "name": "xdrparity-runner-js",
+  "version": "0.1.0",
+  "description": "XDRParity JS runner - see ../contract.md",
+  "main": "index.js",
+  "scripts": {},
+  "type": "commonjs",
+  "dependencies": {
+    "@stellar/stellar-sdk": "17.0.0"
+  }
+}
