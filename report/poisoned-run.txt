@@ -1,0 +1,93 @@
+=== XDRParity poisoned-run evidence — 2026-08-22T02:55:23Z ===
+Deliberate mutation: runners/js/index.js builds every envelope with per-op fee + 1.
+Expectation: matrix FAILs on dim1 (structure, $.tx.tx.fee) and dim3 (sig_payload_hash) for every js pair; exit code nonzero.
+
+$ git diff runners/js/index.js
+diff --git a/runners/js/index.js b/runners/js/index.js
+index 32d83e2..a790b98 100644
+--- a/runners/js/index.js
++++ b/runners/js/index.js
+@@ -157,7 +157,7 @@ function build(req) {
+   // SDK builders take current sequence and auto-increment: feed seq_num - 1.
+   const account = new S.Account(tx.source_account, (BigInt(tx.seq_num) - 1n).toString());
+   const builder = new S.TransactionBuilder(account, {
+-    fee: String(tx.fee / nOps),  // per-op base fee × nOps = fixture total
++    fee: String(tx.fee / nOps + 1),  // POISON: deliberate +1 mutation for the detection-evidence run
+     networkPassphrase: req.network_passphrase,
+     timebounds: { minTime: tx.time_bounds.min_time, maxTime: tx.time_bounds.max_time },
+     memo: buildMemo(tx.memo),
+
+$ npm run matrix   # with poisoned JS runner
+
+> xdrparity@0.1.0 matrix
+> tsx harness/src/matrix.ts
+
+[harness] e001: go java js python
+[harness] e002: go java js python
+[harness] e003: go java js python
+[harness] e004: go java js python
+[harness] e005: go java js python
+[harness] f001: go java js python
+[harness] f002: go java js python
+[harness] f003: go java js python
+[harness] f004: go java js python
+[harness] f005: go java js python
+[harness] f006: go java js python
+[harness] f007: go java js python
+[harness] f008: go java js python
+[harness] f009: go java js python
+[harness] f010: go java js python
+[harness] f011: go java js python
+[harness] f012: go java js python
+[harness] f013: go java js python
+[harness] f014: go java js python
+[harness] f015: go java js python
+[harness] f016: go java js python
+[harness] f017: go java js python
+[harness] f018: go java js python
+[harness] f019: go java js python
+[harness] f020: go java js python
+[harness] wrote C:\XDR\report\raw.json (25 fixtures × 4 SDKs)
+[report] wrote report/matrix.{json,md,html} — 25 fixtures × 4 SDKs, 189 mismatch(es), 0 runner bug(s), 189 pending triage
+exit code: 3
+
+$ npm run compare   # named per-mismatch diffs (first 30 lines)
+
+> xdrparity@0.1.0 compare
+> tsx harness/src/compare.ts
+
+--- 189 mismatch(es) PENDING human triage ---
+
+f001  dim1  go↔js  [PENDING]
+  path: $.tx.signatures[0].signature
+  a: "ad6d53b8f40e3bf80b5ac0eec21d9ff65bb2c0be731b36128066a586df8bc423948bc97c551b14db1fd8c596498d9a723c9c01a1bb69848aa6d9...
+  b: "16791105b2869008f23a406e3867b2cb05e0b426266570d1c4b38065d7a9273260267c43d3d647ffad59e93e20517310fb0553f67fae55699e0c...
+
+f001  dim1  go↔js  [PENDING]
+  path: $.tx.tx.fee
+  a: 100
+  b: 101
+
+f001  dim3  go↔js  [PENDING]
+  path: sig_payload_hash
+  a: "1518744e18fd821554b64f7f315be612e2b63f36aed19d3736059c091084501b"
+  b: "0578c874ef34b5b226ad24eebdcb3069257b2a8192bd6357d8b1652155b349ff"
+
+f001  dim1  java↔js  [PENDING]
+  path: $.tx.signatures[0].signature
+  a: "ad6d53b8f40e3bf80b5ac0eec21d9ff65bb2c0be731b36128066a586df8bc423948bc97c551b14db1fd8c596498d9a723c9c01a1bb69848aa6d9...
+  b: "16791105b2869008f23a406e3867b2cb05e0b426266570d1c4b38065d7a9273260267c43d3d647ffad59e93e20517310fb0553f67fae55699e0c...
+
+f001  dim1  java↔js  [PENDING]
+  path: $.tx.tx.fee
+  a: 100
+  b: 101
+
+=== mutation reverted — 2026-08-22T02:57:30Z ===
+$ git diff runners/js/index.js   # (empty — back to committed state)
+
+$ npm run matrix   # must be green again
+[harness] wrote C:\XDR\report\raw.json (25 fixtures × 4 SDKs)
+[report] wrote report/matrix.{json,md,html} — 25 fixtures × 4 SDKs, 0 mismatch(es), 0 runner bug(s), 0 pending triage
+exit code: 0
+=== end of poisoned-run evidence ===

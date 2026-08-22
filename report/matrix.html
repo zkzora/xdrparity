@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>XDRParity Conformance Matrix</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 2rem auto; max-width: 72rem; padding: 0 1rem; color: #1a1a1a; background: #fff; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: 0.9rem; }
+  th, td { border: 1px solid #d0d0d0; padding: 0.35rem 0.6rem; text-align: left; }
+  th { background: #f4f4f4; }
+  td.pass { background: #e6f4ea; color: #137333; }
+  td.fail { background: #fce8e6; } td.fail a { color: #c5221f; font-weight: 600; }
+  td.bug { background: #fef7e0; } td.bug a { color: #b06000; font-weight: 600; }
+  code { background: #f4f4f4; padding: 0.05rem 0.3rem; border-radius: 3px; font-size: 0.85em; }
+  details { margin: 0.5rem 0; } .meta { color: #5f6368; font-size: 0.9rem; }
+</style></head><body>
+<h1>XDRParity Conformance Matrix</h1>
+<p class="meta">Generated: 2026-08-22T02:59:05.472Z • Protocol version: 23 •
+Fixtures: 20 valid + 5 invalid</p>
+<table><tr><th>SDK</th><th>package</th><th>pinned version</th></tr>
+<tr><td>go</td><td>github.com/stellar/go (txnbuild)</td><td><code>v0.0.0-20251210100531-aab2ea4aca88</code></td></tr>
+<tr><td>java</td><td>network.lightsail:stellar-sdk (java-stellar-sdk)</td><td><code>4.0.1</code></td></tr>
+<tr><td>js</td><td>@stellar/stellar-sdk</td><td><code>17.0.0</code></td></tr>
+<tr><td>python</td><td>stellar-sdk (PyPI)</td><td><code>15.0.0</code></td></tr>
+</table>
+<p class="meta">Legend: PASS — all five dimensions agree · FAIL dN — worst failing dimension
+(3 sig-payload-hash &gt; 2 soroban-auth &gt; 1 structure &gt; 4 round-trip &gt; 5 error-stage) ·
+RUNNER-BUG — contract violation or invariant-6 failure (our bug, never SDK divergence).</p>
+<table><tr><th>fixture</th><th>title</th><th>go</th><th>java</th><th>js</th><th>python</th></tr>
+<tr><td>e001</td><td>malformed asset code: 13 characters</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>e002</td><td>seq_num is string garbage</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>e003</td><td>unknown operation type</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>e004</td><td>destination address with bad checksum</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>e005</td><td>i128 out of range (2^127)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f001</td><td>native payment, alice pays bob</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f002</td><td>issued-asset payment, USDC issued by bob, alice pays carol</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f003</td><td>native payment with UTF-8 text memo</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f004</td><td>native payment to muxed destination (bob, id 9876543210)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f005</td><td>create_account, alice creates carol</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f006</td><td>change_trust, alice trusts USDC (bob) with explicit limit</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f007</td><td>change_trust, limit zero deletes the trustline</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f008</td><td>set_options, add carol as an ed25519 signer</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f009</td><td>set_options thresholds; two signatures in committed order</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f010</td><td>set_options, home domain</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f011</td><td>set_options master weight; three signatures in committed order</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f012</td><td>create_claimable_balance, native, unconditional claimant</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f013</td><td>create_claimable_balance, issued asset, time predicate</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f014</td><td>invoke_contract, token transfer args</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f015</td><td>invoke_contract, multi-arg call: u32/i128/symbol/address/vec</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f016</td><td>invoke_contract with two auth entries (source-account + address)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f017</td><td>invoke_contract with nested invocation auth tree</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f018</td><td>invoke_contract, i128 boundary values (max and min)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f019</td><td>invoke_contract, edge scalars: 32-char symbol, u32 max, void</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f020</td><td>invoke_contract, empty vec and nested vec-of-vec</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+</table>
+<h2>Mismatch details</h2>
+<p>None. Every cell agrees on every dimension, and invariant 6 holds for every cell.</p>
+<h2>Confirmed divergences</h2>
+<p>None so far — all four SDKs produce byte-identical envelopes on every valid fixture.</p>
+</body></html>
