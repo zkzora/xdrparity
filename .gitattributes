@@ -6,3 +6,4 @@
 # Binary artifacts (runner builds land later)
 *.jar binary
 *.png binary
+*.bat text eol=crlf
