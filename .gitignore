@@ -37,3 +37,6 @@ Thumbs.db
 runners/java/bin/
 !report/sow-evidence-run.txt
 !report/poisoned-run.txt
+
+# Local working notes, not part of the published repo
+/CLAUDE.md
