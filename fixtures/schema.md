@@ -14,7 +14,7 @@ fixture that uses it.
 |-------|------|-------|
 | `id` | string | `f###` (valid) or `e###` (invalid); must match filename |
 | `title` | string | human description, harness-only |
-| `protocol_version` | int | protocol the fixture targets (e.g. `23`), informational pin |
+| `protocol_version` | int | protocol the fixture targets (e.g. `28`), informational pin |
 | `source_account` | account ref | see *Account references* below |
 | `seq_num` | int64 literal | the value that must appear in the envelope (`determinism.md` rule 4) |
 | `fee` | uint32 literal | total tx fee, used as-is |
@@ -223,7 +223,7 @@ The harness transforms a fixture into the runner input
 ```yaml
 id: f001
 title: native payment, alice pays bob
-protocol_version: 23
+protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
 fee: 100

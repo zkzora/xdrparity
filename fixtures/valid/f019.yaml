@@ -1,6 +1,6 @@
 id: f019
 title: "invoke_contract, edge scalars: 32-char symbol, u32 max, void"
-protocol_version: 23
+protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
 fee: 100

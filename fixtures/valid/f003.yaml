@@ -1,6 +1,6 @@
 id: f003
 title: native payment with UTF-8 text memo
-protocol_version: 23
+protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
 fee: 100

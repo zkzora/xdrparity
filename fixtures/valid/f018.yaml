@@ -1,6 +1,6 @@
 id: f018
 title: invoke_contract, i128 boundary values (max and min)
-protocol_version: 23
+protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
 fee: 100

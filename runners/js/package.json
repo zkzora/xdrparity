@@ -6,6 +6,6 @@
   "scripts": {},
   "type": "commonjs",
   "dependencies": {
-    "@stellar/stellar-sdk": "17.0.0"
+    "@stellar/stellar-sdk": "17.1.0"
   }
 }

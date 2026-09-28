@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-22T02:59:05.472Z",
+  "generated": "2026-09-28T09:15:50.625Z",
   "protocol_versions": [
-    "23"
+    "28"
   ],
   "versions": {
     "js": {
       "sdk": "@stellar/stellar-sdk",
-      "version": "17.0.0",
+      "version": "17.1.0",
       "run": [
         "node",
         "index.js"
@@ -15,7 +15,7 @@
     },
     "python": {
       "sdk": "stellar-sdk (PyPI)",
-      "version": "15.0.0",
+      "version": "16.1.0",
       "run": [
         ".venv/Scripts/python.exe",
         "runner.py"
@@ -23,8 +23,8 @@
       "cwd": "runners/python"
     },
     "go": {
-      "sdk": "github.com/stellar/go (txnbuild)",
-      "version": "v0.0.0-20251210100531-aab2ea4aca88",
+      "sdk": "github.com/stellar/go-stellar-sdk (txnbuild)",
+      "version": "v0.7.3",
       "run": [
         "go",
         "run",
@@ -34,7 +34,7 @@
     },
     "java": {
       "sdk": "network.lightsail:stellar-sdk (java-stellar-sdk)",
-      "version": "4.0.1",
+      "version": "5.0.0",
       "run": [
         "${JAVA_HOME}/bin/java",
         "-jar",
@@ -43,6 +43,11 @@
       "cwd": "runners/java"
     }
   },
+  "reference_decoder": [
+    "stellar 28.1.0",
+    "stellar-xdr 28.0.0",
+    "XDR definitions 9c9c145953e8"
+  ],
   "cells": {
     "e001": {
       "go": {

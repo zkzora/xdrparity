@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # XDRParity toolchain check (Fase 0).
 # Verifies the tools the harness and all four SDK runners need:
-#   node >= 20, python >= 3.11, java >= 17, go >= 1.22,
-#   and a working `stellar xdr decode` (the neutral XDR decoder).
+#   node >= 20, python >= 3.11, java >= 17, go >= 1.25,
+#   and stellar CLI >= 28 with a working `stellar xdr decode` (the neutral
+#   XDR decoder must understand the protocol the fixtures target).
 # Prints each version; exits nonzero if anything is missing or too old.
 #
 # Java is resolved via JAVA_HOME when set (some machines pin an old JRE
@@ -60,23 +61,26 @@ else
   fail java "not found (need >= 17)"
 fi
 
-# --- go >= 1.22 ---
+# --- go >= 1.25 (go-stellar-sdk's minimum) ---
 if command -v go >/dev/null 2>&1; then
   v="$(go version 2>/dev/null | sed -n 's/^go version go\([0-9.]*\).*/\1/p')"
-  if [ -n "$v" ] && ver_ge "$v" 1.22; then pass go "$v"; else fail go "${v:-unparseable} (need >= 1.22)"; fi
+  if [ -n "$v" ] && ver_ge "$v" 1.25; then pass go "$v"; else fail go "${v:-unparseable} (need >= 1.25)"; fi
 else
-  fail go "not found (need >= 1.22)"
+  fail go "not found (need >= 1.25)"
 fi
 
-# --- stellar CLI with working xdr decode ---
+# --- stellar CLI >= 28 with working xdr decode ---
 if command -v stellar >/dev/null 2>&1; then
-  if stellar xdr decode --help >/dev/null 2>&1; then
+  v="$(stellar --version 2>/dev/null | sed -n 's/^stellar \([0-9.]*\).*/\1/p' | head -n1)"
+  if ! stellar xdr decode --help >/dev/null 2>&1; then
+    fail stellar "installed, but 'stellar xdr decode --help' failed"
+  elif [ -n "$v" ] && ver_ge "$v" 28; then
     pass stellar "$(stellar --version 2>/dev/null | head -n1)"
   else
-    fail stellar "installed, but 'stellar xdr decode --help' failed"
+    fail stellar "${v:-unparseable} (need >= 28 for protocol 28 XDR)"
   fi
 else
-  fail stellar "not found (need stellar CLI with 'xdr decode')"
+  fail stellar "not found (need stellar CLI >= 28 with 'xdr decode')"
 fi
 
 echo

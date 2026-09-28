@@ -13,14 +13,15 @@
   details { margin: 0.5rem 0; } .meta { color: #5f6368; font-size: 0.9rem; }
 </style></head><body>
 <h1>XDRParity Conformance Matrix</h1>
-<p class="meta">Generated: 2026-08-22T02:59:05.472Z • Protocol version: 23 •
+<p class="meta">Generated: 2026-09-28T09:15:50.625Z • Protocol version: 28 •
 Fixtures: 20 valid + 5 invalid</p>
 <table><tr><th>SDK</th><th>package</th><th>pinned version</th></tr>
-<tr><td>go</td><td>github.com/stellar/go (txnbuild)</td><td><code>v0.0.0-20251210100531-aab2ea4aca88</code></td></tr>
-<tr><td>java</td><td>network.lightsail:stellar-sdk (java-stellar-sdk)</td><td><code>4.0.1</code></td></tr>
-<tr><td>js</td><td>@stellar/stellar-sdk</td><td><code>17.0.0</code></td></tr>
-<tr><td>python</td><td>stellar-sdk (PyPI)</td><td><code>15.0.0</code></td></tr>
+<tr><td>go</td><td>github.com/stellar/go-stellar-sdk (txnbuild)</td><td><code>v0.7.3</code></td></tr>
+<tr><td>java</td><td>network.lightsail:stellar-sdk (java-stellar-sdk)</td><td><code>5.0.0</code></td></tr>
+<tr><td>js</td><td>@stellar/stellar-sdk</td><td><code>17.1.0</code></td></tr>
+<tr><td>python</td><td>stellar-sdk (PyPI)</td><td><code>16.1.0</code></td></tr>
 </table>
+<p class="meta">Reference decoder (neutral — never an SDK under test): <code>stellar 28.1.0</code> · <code>stellar-xdr 28.0.0</code> · <code>XDR definitions 9c9c145953e8</code></p>
 <p class="meta">Legend: PASS — all five dimensions agree · FAIL dN — worst failing dimension
 (3 sig-payload-hash &gt; 2 soroban-auth &gt; 1 structure &gt; 4 round-trip &gt; 5 error-stage) ·
 RUNNER-BUG — contract violation or invariant-6 failure (our bug, never SDK divergence).</p>

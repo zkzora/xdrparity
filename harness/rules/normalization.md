@@ -16,8 +16,8 @@ not a normalization rule — JSON object key order carries no XDR semantics and
 exists only so byte-comparison of canonical JSON is well-defined.
 
 This is the desired state, not an omission: across the full 25 × 4 matrix
-(JS 17.0.0, Python 15.0.0, Go `v0.0.0-20251210100531-aab2ea4aca88`,
-Java 4.0.1), all four
+(JS 17.1.0, Python 16.1.0, Go `go-stellar-sdk` v0.7.3, Java 5.0.0 —
+protocol 28, reference decoder stellar-xdr 28.0.0), all four
 SDKs produce byte-identical envelopes on every valid fixture, so no
 representation difference has ever needed to be excused.
 

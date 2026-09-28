@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation("network.lightsail:stellar-sdk:4.0.1")
+    implementation("network.lightsail:stellar-sdk:5.0.0")
     implementation("com.google.code.gson:gson:2.14.0")
 }
 

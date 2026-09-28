@@ -1,4 +1,13 @@
-=== XDRParity final pass — 2026-08-22T02:44:30Z — single terminal session ===
+=== XDRParity final pass (protocol 28 refresh) — 2026-09-28T09:14:50Z — single terminal session ===
+
+$ bash scripts/check-env.sh
+PASS  node     v24.16.0
+PASS  python   3.11.9 (python3)
+PASS  java     21.0.12.1 (C:\Program Files\Eclipse Adoptium\jdk-21.0.12.101-hotspot/bin/java)
+PASS  go       1.27.0
+PASS  stellar  stellar 28.1.0 (c0f4d0da891bbf214c08b8c5035ae6db80e9a3bd)
+
+environment OK — all XDRParity toolchain requirements met
 
 $ npm test
 
@@ -11,8 +20,8 @@ $ npm test
 
  Test Files  2 passed (2)
       Tests  19 passed (19)
-   Start at  09:44:31
-   Duration  1.22s (transform 163ms, setup 0ms, import 222ms, tests 1.20s, environment 0ms)
+   Start at  16:14:52
+   Duration  916ms (transform 123ms, setup 0ms, import 164ms, tests 889ms, environment 0ms)
 
 
 $ npm run matrix
@@ -53,7 +62,7 @@ $ npm run verify-determinism
 > xdrparity@0.1.0 verify-determinism
 > tsx harness/src/verify-determinism.ts
 
-[determinism] run 1 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-1W7LTm
+[determinism] run 1 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-x4Uo6J
 [harness] e001: go java js python
 [harness] e002: go java js python
 [harness] e003: go java js python
@@ -79,8 +88,8 @@ $ npm run verify-determinism
 [harness] f018: go java js python
 [harness] f019: go java js python
 [harness] f020: go java js python
-[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-1W7LTm\raw.json (25 fixtures × 4 SDKs)
-[determinism] run 2 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-D9Huzi
+[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-x4Uo6J\raw.json (25 fixtures × 4 SDKs)
+[determinism] run 2 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-gmqv42
 [harness] e001: go java js python
 [harness] e002: go java js python
 [harness] e003: go java js python
@@ -106,7 +115,7 @@ $ npm run verify-determinism
 [harness] f018: go java js python
 [harness] f019: go java js python
 [harness] f020: go java js python
-[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-D9Huzi\raw.json (25 fixtures × 4 SDKs)
+[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-gmqv42\raw.json (25 fixtures × 4 SDKs)
 [determinism] raw.json: byte-identical across both runs (50032 bytes)
 verify-determinism: PASS — two full matrix runs produced byte-identical output
 

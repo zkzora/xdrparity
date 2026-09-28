@@ -3,6 +3,7 @@
 // collapsed to the worst dimension, with per-mismatch diffs and links to
 // confirmed-divergence notes. Reuses the comparator itself, so the matrix
 // can never disagree with `npm run compare`.
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
@@ -70,8 +71,21 @@ const cellText = (c: CellStatus) =>
 const esc = (s: unknown) =>
   String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+/**
+ * The neutral reference decoder's identity (CLAUDE.md invariant 2): CLI
+ * version, stellar-xdr crate version, and the XDR definitions commit.
+ */
+function referenceDecoder(): string[] {
+  const proc = spawnSync('stellar', ['--version'], { encoding: 'utf8' });
+  if (proc.error || proc.status !== 0) return ['unknown'];
+  return proc.stdout.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => {
+    const commit = l.match(/^xdr \(([0-9a-f]{12})[0-9a-f]*\)$/);
+    return commit ? `XDR definitions ${commit[1]}` : l.replace(/\s*\(.*\)$/, '');
+  });
+}
+
 function renderMarkdown(ctx: Context): string {
-  const { fixtures, sdks, versions, cells, pending, triaged, runnerBugs, generated, protocolVersions, titles } = ctx;
+  const { fixtures, sdks, versions, cells, pending, triaged, runnerBugs, generated, protocolVersions, titles, decoder } = ctx;
   const lines: string[] = [];
   lines.push('# XDRParity Conformance Matrix', '');
   lines.push(`Generated: ${generated} • Protocol version: ${protocolVersions.join(', ')} • ` +
@@ -80,6 +94,7 @@ function renderMarkdown(ctx: Context): string {
   lines.push('| SDK | package | pinned version |', '|---|---|---|');
   for (const s of sdks) lines.push(`| ${s} | ${versions[s].sdk} | \`${versions[s].version}\` |`);
   lines.push('');
+  lines.push(`Reference decoder (neutral — never an SDK under test): ${decoder.map((d) => `\`${d}\``).join(' · ')}`, '');
   lines.push('Legend: `PASS` — all five dimensions agree · `FAIL dN` — worst failing dimension ' +
     '(3 sig-payload-hash > 2 soroban-auth > 1 structure > 4 round-trip > 5 error-stage) · ' +
     '`RUNNER-BUG` — contract violation or invariant-6 failure, our bug, never SDK divergence. ' +
@@ -139,7 +154,7 @@ function divergenceLink(entry: TriageEntry): string {
 }
 
 function renderHtml(ctx: Context): string {
-  const { fixtures, sdks, versions, cells, pending, triaged, runnerBugs, generated, protocolVersions, titles } = ctx;
+  const { fixtures, sdks, versions, cells, pending, triaged, runnerBugs, generated, protocolVersions, titles, decoder } = ctx;
   const cellHtml = (f: string, s: string) => {
     const c = cells[f][s];
     if (c.status === 'PASS') return '<td class="pass">PASS</td>';
@@ -185,6 +200,7 @@ Fixtures: ${fixtures.filter((f) => f.startsWith('f')).length} valid + ${fixtures
 <table><tr><th>SDK</th><th>package</th><th>pinned version</th></tr>
 ${sdks.map((s) => `<tr><td>${esc(s)}</td><td>${esc(versions[s].sdk)}</td><td><code>${esc(versions[s].version)}</code></td></tr>`).join('\n')}
 </table>
+<p class="meta">Reference decoder (neutral — never an SDK under test): ${decoder.map((d) => `<code>${esc(d)}</code>`).join(' · ')}</p>
 <p class="meta">Legend: PASS — all five dimensions agree · FAIL dN — worst failing dimension
 (3 sig-payload-hash &gt; 2 soroban-auth &gt; 1 structure &gt; 4 round-trip &gt; 5 error-stage) ·
 RUNNER-BUG — contract violation or invariant-6 failure (our bug, never SDK divergence).</p>
@@ -214,6 +230,7 @@ interface Context {
   generated: string;
   protocolVersions: string[];
   titles: Record<string, string>;
+  decoder: string[];
 }
 
 /** Generate report/matrix.{json,md,html} from report/raw.json. Sets the process exit code on pending/runner-bug states. */
@@ -244,11 +261,13 @@ export function generateReport() {
     generated: new Date().toISOString(),
     protocolVersions: [...protoSet].sort(),
     titles,
+    decoder: referenceDecoder(),
   };
 
   mkdirSync(REPORT_DIR, { recursive: true });
   writeFileSync(join(REPORT_DIR, 'matrix.json'), JSON.stringify({
     generated: ctx.generated, protocol_versions: ctx.protocolVersions, versions,
+    reference_decoder: ctx.decoder,
     cells, mismatches, runner_bugs: runnerBugs,
     pending_triage: pending.length,
   }, null, 2) + '\n');

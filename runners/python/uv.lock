@@ -397,7 +397,7 @@ dependencies = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "stellar-sdk", specifier = "==15.0.0" }]
+requires-dist = [{ name = "stellar-sdk", specifier = "==16.1.0" }]
 
 [[package]]
 name = "requests"
@@ -428,7 +428,7 @@ wheels = [
 
 [[package]]
 name = "stellar-sdk"
-version = "15.0.0"
+version = "16.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mnemonic" },
@@ -439,9 +439,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "xdrlib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/84/68/936b06d7381e340d76de3529451e4458f7dc47a3364dfad4b63a3c2b8bd1/stellar_sdk-15.0.0.tar.gz", hash = "sha256:c62c5b23e187ce44afa8154892287e5dc136b94048731ca32b4bea4817031b73", size = 420729, upload-time = "2026-07-04T00:32:22.537Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/57/1c/d402dbeb6a96d13e91fa14af0d27355fd49350158eaa0f6db1db5d6d0975/stellar_sdk-16.1.0.tar.gz", hash = "sha256:68394217692ec95c91e776701b576c7ee7ad0ce49ceedfa8f14e00d49376d469", size = 426643, upload-time = "2026-09-03T03:32:00.09Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/eb/8c/6f63b691ce81aa75b3a003c85549a9f9443423da0085fe280afe6614e980/stellar_sdk-15.0.0-py3-none-any.whl", hash = "sha256:a8495dc99fd0c25484e57ad7cc6bceb0e5d708c2e74e20665b167a5974ad1609", size = 980450, upload-time = "2026-07-04T00:32:20.811Z" },
+    { url = "https://files.pythonhosted.org/packages/e5/9e/14ec3368b8d4c7f52631a35ba6e1792de373bb2904aec33274fac53a5d4f/stellar_sdk-16.1.0-py3-none-any.whl", hash = "sha256:cabeca39762ba247c0f9b5d5e2be1e849c81f6bf0cb3932a9633955732341d6e", size = 988964, upload-time = "2026-09-03T03:31:58.427Z" },
 ]
 
 [[package]]

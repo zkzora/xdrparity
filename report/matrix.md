@@ -1,13 +1,15 @@
 # XDRParity Conformance Matrix
 
-Generated: 2026-08-22T02:59:05.472Z • Protocol version: 23 • Fixtures: 20 valid + 5 invalid • SDKs: 4
+Generated: 2026-09-28T09:15:50.625Z • Protocol version: 28 • Fixtures: 20 valid + 5 invalid • SDKs: 4
 
 | SDK | package | pinned version |
 |---|---|---|
-| go | github.com/stellar/go (txnbuild) | `v0.0.0-20251210100531-aab2ea4aca88` |
-| java | network.lightsail:stellar-sdk (java-stellar-sdk) | `4.0.1` |
-| js | @stellar/stellar-sdk | `17.0.0` |
-| python | stellar-sdk (PyPI) | `15.0.0` |
+| go | github.com/stellar/go-stellar-sdk (txnbuild) | `v0.7.3` |
+| java | network.lightsail:stellar-sdk (java-stellar-sdk) | `5.0.0` |
+| js | @stellar/stellar-sdk | `17.1.0` |
+| python | stellar-sdk (PyPI) | `16.1.0` |
+
+Reference decoder (neutral — never an SDK under test): `stellar 28.1.0` · `stellar-xdr 28.0.0` · `XDR definitions 9c9c145953e8`
 
 Legend: `PASS` — all five dimensions agree · `FAIL dN` — worst failing dimension (3 sig-payload-hash > 2 soroban-auth > 1 structure > 4 round-trip > 5 error-stage) · `RUNNER-BUG` — contract violation or invariant-6 failure, our bug, never SDK divergence. Failing cells link to the diff details below.
 

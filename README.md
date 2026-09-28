@@ -11,7 +11,7 @@ five dimensions. Output: a public fixture × SDK conformance matrix.
 ## Quickstart
 
 ```bash
-bash scripts/check-env.sh    # node >= 20, python >= 3.11, java >= 17, go >= 1.22, stellar CLI
+bash scripts/check-env.sh    # node >= 20, python >= 3.11, java >= 17, go >= 1.25, stellar CLI >= 28
 npm install                  # harness deps
 
 # one-time runner setup

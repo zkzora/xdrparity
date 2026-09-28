@@ -1,6 +1,6 @@
 id: f004
 title: native payment to muxed destination (bob, id 9876543210)
-protocol_version: 23
+protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
 fee: 100
