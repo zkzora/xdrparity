@@ -1,6 +1,6 @@
 # XDRParity Conformance Matrix
 
-Generated: 2026-09-28T09:15:50.625Z • Protocol version: 28 • Fixtures: 20 valid + 5 invalid • SDKs: 4
+Generated: 2026-09-28T10:16:29.633Z • Protocol version: 28 • Fixtures: 20 valid + 5 invalid • SDKs: 4
 
 | SDK | package | pinned version |
 |---|---|---|
@@ -35,8 +35,8 @@ Legend: `PASS` — all five dimensions agree · `FAIL dN` — worst failing dime
 | f013 | create_claimable_balance, issued asset, time predicate | PASS | PASS | PASS | PASS |
 | f014 | invoke_contract, token transfer args | PASS | PASS | PASS | PASS |
 | f015 | invoke_contract, multi-arg call: u32/i128/symbol/address/vec | PASS | PASS | PASS | PASS |
-| f016 | invoke_contract with two auth entries (source-account + address) | PASS | PASS | PASS | PASS |
-| f017 | invoke_contract with nested invocation auth tree | PASS | PASS | PASS | PASS |
+| f016 | invoke_contract with two auth entries (source-account + legacy address) | PASS | PASS | PASS | PASS |
+| f017 | invoke_contract with nested invocation auth tree, address-bound V2 credentials | PASS | PASS | PASS | PASS |
 | f018 | invoke_contract, i128 boundary values (max and min) | PASS | PASS | PASS | PASS |
 | f019 | invoke_contract, edge scalars: 32-char symbol, u32 max, void | PASS | PASS | PASS | PASS |
 | f020 | invoke_contract, empty vec and nested vec-of-vec | PASS | PASS | PASS | PASS |

@@ -199,16 +199,23 @@ public final class Runner {
           .discriminant(SorobanCredentialsType.SOROBAN_CREDENTIALS_SOURCE_ACCOUNT).build();
     } else {
       JsonObject c = credEl.getAsJsonObject();
-      credentials = SorobanCredentials.builder()
-          .discriminant(SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS)
-          .address(SorobanAddressCredentials.builder()
-              .address(new Address(c.get("address").getAsString()).toSCAddress())
-              .nonce(new Int64(c.get("nonce").getAsLong()))
-              .signatureExpirationLedger(
-                  new Uint32(new XdrUnsignedInteger(c.get("signature_expiration_ledger").getAsLong())))
-              .signature(Scv.toVoid()) // committed unsigned (schema.md)
-              .build())
+      SorobanAddressCredentials addressCredentials = SorobanAddressCredentials.builder()
+          .address(new Address(c.get("address").getAsString()).toSCAddress())
+          .nonce(new Int64(c.get("nonce").getAsLong()))
+          .signatureExpirationLedger(
+              new Uint32(new XdrUnsignedInteger(c.get("signature_expiration_ledger").getAsLong())))
+          .signature(Scv.toVoid()) // committed unsigned (schema.md)
           .build();
+      String type = c.has("type") ? c.get("type").getAsString() : "";
+      credentials = switch (type) {
+        case "address" -> SorobanCredentials.builder()
+            .discriminant(SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS)
+            .address(addressCredentials).build();
+        case "address_v2" -> SorobanCredentials.builder()
+            .discriminant(SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS_V2)
+            .addressV2(addressCredentials).build();
+        default -> throw new IllegalArgumentException("unknown credentials type: " + type);
+      };
     }
     return SorobanAuthorizationEntry.builder()
         .credentials(credentials)

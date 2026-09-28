@@ -1,4 +1,4 @@
-=== XDRParity final pass (protocol 28 refresh) — 2026-09-28T09:14:50Z — single terminal session ===
+=== XDRParity final pass (protocol 28, f017 on ADDRESS_V2) — 2026-09-28T10:15:20Z — single terminal session ===
 
 $ bash scripts/check-env.sh
 PASS  node     v24.16.0
@@ -19,9 +19,9 @@ $ npm test
 
 
  Test Files  2 passed (2)
-      Tests  19 passed (19)
-   Start at  16:14:52
-   Duration  916ms (transform 123ms, setup 0ms, import 164ms, tests 889ms, environment 0ms)
+      Tests  21 passed (21)
+   Start at  17:15:22
+   Duration  1.29s (transform 94ms, setup 0ms, import 131ms, tests 1.30s, environment 0ms)
 
 
 $ npm run matrix
@@ -62,7 +62,7 @@ $ npm run verify-determinism
 > xdrparity@0.1.0 verify-determinism
 > tsx harness/src/verify-determinism.ts
 
-[determinism] run 1 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-x4Uo6J
+[determinism] run 1 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-c9AcYU
 [harness] e001: go java js python
 [harness] e002: go java js python
 [harness] e003: go java js python
@@ -88,8 +88,8 @@ $ npm run verify-determinism
 [harness] f018: go java js python
 [harness] f019: go java js python
 [harness] f020: go java js python
-[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-x4Uo6J\raw.json (25 fixtures × 4 SDKs)
-[determinism] run 2 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-gmqv42
+[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-a-c9AcYU\raw.json (25 fixtures × 4 SDKs)
+[determinism] run 2 → C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-nwpYYK
 [harness] e001: go java js python
 [harness] e002: go java js python
 [harness] e003: go java js python
@@ -115,7 +115,7 @@ $ npm run verify-determinism
 [harness] f018: go java js python
 [harness] f019: go java js python
 [harness] f020: go java js python
-[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-gmqv42\raw.json (25 fixtures × 4 SDKs)
+[harness] wrote C:\Users\Pongo\AppData\Local\Temp\xdrparity-det-b-nwpYYK\raw.json (25 fixtures × 4 SDKs)
 [determinism] raw.json: byte-identical across both runs (50032 bytes)
 verify-determinism: PASS — two full matrix runs produced byte-identical output
 

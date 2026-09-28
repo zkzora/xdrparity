@@ -102,13 +102,19 @@ function buildAuthEntry(a) {
     credentials = S.xdr.SorobanCredentials.sorobanCredentialsSourceAccount();
   } else {
     const c = a.credentials;
-    credentials = S.xdr.SorobanCredentials.sorobanCredentialsAddress(
-      new S.xdr.SorobanAddressCredentials({
-        address: new S.Address(c.address).toScAddress(),
-        nonce: S.xdr.Int64.fromString(String(c.nonce)),
-        signatureExpirationLedger: c.signature_expiration_ledger,
-        signature: S.xdr.ScVal.scvVoid(),  // committed unsigned (schema.md)
-      }));
+    const addressCredentials = new S.xdr.SorobanAddressCredentials({
+      address: new S.Address(c.address).toScAddress(),
+      nonce: S.xdr.Int64.fromString(String(c.nonce)),
+      signatureExpirationLedger: c.signature_expiration_ledger,
+      signature: S.xdr.ScVal.scvVoid(),  // committed unsigned (schema.md)
+    });
+    if (c.type === 'address') {
+      credentials = S.xdr.SorobanCredentials.sorobanCredentialsAddress(addressCredentials);
+    } else if (c.type === 'address_v2') {
+      credentials = S.xdr.SorobanCredentials.sorobanCredentialsAddressV2(addressCredentials);
+    } else {
+      throw new Error(`unknown credentials type: ${c.type}`);
+    }
   }
   return new S.xdr.SorobanAuthorizationEntry({
     credentials, rootInvocation: buildInvocation(a.invocation),

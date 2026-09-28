@@ -328,6 +328,7 @@ func buildAuth(raw json.RawMessage) (xdr.SorobanAuthorizationEntry, error) {
 		creds = xdr.SorobanCredentials{Type: xdr.SorobanCredentialsTypeSorobanCredentialsSourceAccount}
 	} else {
 		var c struct {
+			Type                      string `json:"type"`
 			Address                   string `json:"address"`
 			Nonce                     int64  `json:"nonce"`
 			SignatureExpirationLedger uint32 `json:"signature_expiration_ledger"`
@@ -339,14 +340,19 @@ func buildAuth(raw json.RawMessage) (xdr.SorobanAuthorizationEntry, error) {
 		if err != nil {
 			return xdr.SorobanAuthorizationEntry{}, err
 		}
-		creds = xdr.SorobanCredentials{
-			Type: xdr.SorobanCredentialsTypeSorobanCredentialsAddress,
-			Address: &xdr.SorobanAddressCredentials{
-				Address:                   addr,
-				Nonce:                     xdr.Int64(c.Nonce),
-				SignatureExpirationLedger: xdr.Uint32(c.SignatureExpirationLedger),
-				Signature:                 xdr.ScVal{Type: xdr.ScValTypeScvVoid}, // committed unsigned
-			},
+		addressCredentials := &xdr.SorobanAddressCredentials{
+			Address:                   addr,
+			Nonce:                     xdr.Int64(c.Nonce),
+			SignatureExpirationLedger: xdr.Uint32(c.SignatureExpirationLedger),
+			Signature:                 xdr.ScVal{Type: xdr.ScValTypeScvVoid}, // committed unsigned
+		}
+		switch c.Type {
+		case "address":
+			creds = xdr.SorobanCredentials{Type: xdr.SorobanCredentialsTypeSorobanCredentialsAddress, Address: addressCredentials}
+		case "address_v2":
+			creds = xdr.SorobanCredentials{Type: xdr.SorobanCredentialsTypeSorobanCredentialsAddressV2, AddressV2: addressCredentials}
+		default:
+			return xdr.SorobanAuthorizationEntry{}, fmt.Errorf("unknown credentials type: %q", c.Type)
 		}
 	}
 	inv, err := buildInvocation(entry.Invocation)

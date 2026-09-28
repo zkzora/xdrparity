@@ -180,8 +180,9 @@ auth:
         - i128: "500000000"
       sub_invocations: []
 
-  # address credentials: nonce + expiration committed in the fixture
+  # address credentials: arm, nonce + expiration committed in the fixture
   - credentials:
+      type: address_v2                  # required: address | address_v2
       address: carol
       nonce: 123456789                  # int64 literal
       signature_expiration_ledger: 500000
@@ -197,6 +198,19 @@ auth:
             - i128: "1"
           sub_invocations: []
 ```
+
+The credentials `type` selects the `SorobanCredentials` union arm and has no
+default — an implicit arm would be exactly the kind of ambiguity a byte-parity
+spec cannot allow:
+
+| `type` | XDR arm | corpus |
+|--------|---------|--------|
+| `address` | `SOROBAN_CREDENTIALS_ADDRESS` (legacy preimage, still valid — CAP-71-02 does not deprecate it) | f016 |
+| `address_v2` | `SOROBAN_CREDENTIALS_ADDRESS_V2` (CAP-71-02 address-bound preimage, protocol 27+; the SDKs' default since protocol 28) | f017 |
+
+Both arms carry the same `SorobanAddressCredentials` struct; only the
+discriminant differs. `SOROBAN_CREDENTIALS_ADDRESS_WITH_DELEGATES` is not
+defined — no fixture uses it.
 
 Address-credential entries are committed **unsigned**: the credentials'
 `signature` ScVal is `void`. Cross-SDK parity is measured on the auth

@@ -1,5 +1,5 @@
 id: f016
-title: invoke_contract with two auth entries (source-account + address)
+title: invoke_contract with two auth entries (source-account + legacy address)
 protocol_version: 28
 source_account: alice
 seq_num: 103720918407356415
@@ -28,6 +28,7 @@ operations:
             - i128: "250000000"
           sub_invocations: []
       - credentials:
+          type: address
           address: carol
           nonce: 123456789
           signature_expiration_ledger: 500000

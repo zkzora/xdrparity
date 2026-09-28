@@ -107,15 +107,22 @@ def build_auth(a: dict) -> sxdr.SorobanAuthorizationEntry:
         credentials = sxdr.SorobanCredentials(
             type=sxdr.SorobanCredentialsType.SOROBAN_CREDENTIALS_SOURCE_ACCOUNT)
     else:
-        credentials = sxdr.SorobanCredentials(
-            type=sxdr.SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS,
-            address=sxdr.SorobanAddressCredentials(
-                address=Address(cred["address"]).to_xdr_sc_address(),
-                nonce=sxdr.Int64(int(cred["nonce"])),
-                signature_expiration_ledger=sxdr.Uint32(cred["signature_expiration_ledger"]),
-                signature=scval.to_void(),  # committed unsigned (schema.md)
-            ),
+        address_credentials = sxdr.SorobanAddressCredentials(
+            address=Address(cred["address"]).to_xdr_sc_address(),
+            nonce=sxdr.Int64(int(cred["nonce"])),
+            signature_expiration_ledger=sxdr.Uint32(cred["signature_expiration_ledger"]),
+            signature=scval.to_void(),  # committed unsigned (schema.md)
         )
+        if cred.get("type") == "address":
+            credentials = sxdr.SorobanCredentials(
+                type=sxdr.SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS,
+                address=address_credentials)
+        elif cred.get("type") == "address_v2":
+            credentials = sxdr.SorobanCredentials(
+                type=sxdr.SorobanCredentialsType.SOROBAN_CREDENTIALS_ADDRESS_V2,
+                address_v2=address_credentials)
+        else:
+            raise ValueError(f"unknown credentials type: {cred.get('type')!r}")
     return sxdr.SorobanAuthorizationEntry(
         credentials=credentials, root_invocation=build_invocation(a["invocation"]))
 

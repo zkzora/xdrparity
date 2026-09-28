@@ -44,9 +44,40 @@ describe('dimensionForPath', () => {
   });
 });
 
+// f017: Soroban invocation whose auth entry uses the protocol-27+
+// SOROBAN_CREDENTIALS_ADDRESS_V2 arm — committed test data.
+const v2Xdr = readFileSync(join(import.meta.dirname, 'fixtures', 'f017-envelope.xdr'), 'utf8').trim();
+const v2Hash = '29382012975decf97cef24b762082b1e39e780531a9bf9457ca98a79b4f7d87a';
+
 describe('invariant 6', () => {
   it('recomputes the sample hash from the decoded envelope + network id', () => {
     expect(recomputeSigPayloadHash(decodeEnvelope(sampleXdr))).toBe(sampleHash);
+  });
+  it('recomputes the hash of a Soroban envelope carrying ADDRESS_V2 auth credentials', () => {
+    expect(recomputeSigPayloadHash(decodeEnvelope(v2Xdr))).toBe(v2Hash);
+  });
+});
+
+describe('auth credential arm divergence', () => {
+  it('a legacy-vs-V2 credentials arm mismatch is named as dimension 2, not buried in dimension 1', () => {
+    type Env = { tx: { tx: { operations: Array<{ body: { invoke_host_function: { auth: Array<{ credentials: Record<string, unknown> }> } } }> } } };
+    const legacy = decodeEnvelope(v2Xdr) as Env;
+    const cred = legacy.tx.tx.operations[0].body.invoke_host_function.auth[0].credentials;
+    cred.address = cred.address_v2; // same struct, legacy discriminant
+    delete cred.address_v2;
+    const legacyXdr = encodeEnvelope(JSON.stringify(legacy));
+    const legacyCell = { tx_xdr: legacyXdr, sig_payload_hash: recomputeSigPayloadHash(legacy), error: null };
+
+    const { mismatches, runnerBugs } = compareRaw({
+      f017: { a: { tx_xdr: v2Xdr, sig_payload_hash: v2Hash, error: null }, b: legacyCell },
+    });
+    expect(runnerBugs).toEqual([]); // both cells self-report honestly
+    const structural = mismatches.filter((m) => m.dimension === 1 || m.dimension === 2);
+    expect(structural.length).toBeGreaterThan(0);
+    expect(structural.every((m) => m.dimension === 2)).toBe(true);
+    expect(structural.map((m) => m.path)).toContain(
+      '$.tx.tx.operations[0].body.invoke_host_function.auth[0].credentials.address_v2');
+    expect(mismatches).toContainEqual(expect.objectContaining({ dimension: 3 })); // the arm changes the signed bytes
   });
 });
 

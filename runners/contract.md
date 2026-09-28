@@ -173,9 +173,9 @@ Everything else — strkey checksums, asset-code validity, ScVal ranges — is
 deliberately left to the SDK, so rejection behavior lands in `build` and is
 measured. Adding extra pre-validation hides SDK behavior and is
 nonconforming. Failures in the runner's own JSON→SDK marshalling during
-construction (an unknown ScVal tag, a wrong-typed payload, invalid hex in a
-memo hash) also land in `build`: they arise in the build phase, and no
-conforming fixture produces them. Runners must force any lazy SDK
+construction (an unknown ScVal tag, an unknown auth credentials `type`, a
+wrong-typed payload, invalid hex in a memo hash) also land in `build`: they
+arise in the build phase, and no conforming fixture produces them. Runners must force any lazy SDK
 serialization to complete inside the build phase (e.g. by hashing the built
 transaction) so deferred validation cannot leak into `sign`.
 

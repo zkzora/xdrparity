@@ -13,7 +13,7 @@
   details { margin: 0.5rem 0; } .meta { color: #5f6368; font-size: 0.9rem; }
 </style></head><body>
 <h1>XDRParity Conformance Matrix</h1>
-<p class="meta">Generated: 2026-09-28T09:15:50.625Z • Protocol version: 28 •
+<p class="meta">Generated: 2026-09-28T10:16:29.633Z • Protocol version: 28 •
 Fixtures: 20 valid + 5 invalid</p>
 <table><tr><th>SDK</th><th>package</th><th>pinned version</th></tr>
 <tr><td>go</td><td>github.com/stellar/go-stellar-sdk (txnbuild)</td><td><code>v0.7.3</code></td></tr>
@@ -46,8 +46,8 @@ RUNNER-BUG — contract violation or invariant-6 failure (our bug, never SDK div
 <tr><td>f013</td><td>create_claimable_balance, issued asset, time predicate</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
 <tr><td>f014</td><td>invoke_contract, token transfer args</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
 <tr><td>f015</td><td>invoke_contract, multi-arg call: u32/i128/symbol/address/vec</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
-<tr><td>f016</td><td>invoke_contract with two auth entries (source-account + address)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
-<tr><td>f017</td><td>invoke_contract with nested invocation auth tree</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f016</td><td>invoke_contract with two auth entries (source-account + legacy address)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
+<tr><td>f017</td><td>invoke_contract with nested invocation auth tree, address-bound V2 credentials</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
 <tr><td>f018</td><td>invoke_contract, i128 boundary values (max and min)</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
 <tr><td>f019</td><td>invoke_contract, edge scalars: 32-char symbol, u32 max, void</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
 <tr><td>f020</td><td>invoke_contract, empty vec and nested vec-of-vec</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td><td class="pass">PASS</td></tr>
